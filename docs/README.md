@@ -11,9 +11,20 @@ RSSHub 是一个轻量、易于扩展的 RSS 生成器，可以给任何奇奇�
 
 ## 鸣谢
 
-### Sponsors
+### Special Sponsors
 
--   [rixCloud](https://rixcloud.us)
+<p>
+<a href="https://rixcloud.app/rsshub" target="_blank">
+    <img width="200px" src="https://i.imgur.com/PpcSVCZ.png">
+</a>
+</p>
+<p>
+<a href="https://werss.app?utm_source=rsshub" target="_blank">
+    <img width="150px" src="https://cdn.weapp.design/werss/werss-logo.png">
+</a>
+</p>
+
+### Sponsors
 
 -   [Liuyang](https://github.com/lingllting)
 
@@ -29,11 +40,17 @@ RSSHub 是一个轻量、易于扩展的 RSS 生成器，可以给任何奇奇�
 
 ::: tip 提示
 
-演示地址为 [rsshub.app](https://rsshub.app)，缓存时间 10 分钟，可以随意使用，但请不要抓取过于频繁
+演示地址为 [rsshub.app](https://rsshub.app)，缓存时间 10 分钟，可以随意使用
 
 :::
 
 ## 通用参数
+
+::: tip 提示
+
+所有通用参数可以组合使用，效果叠加
+
+:::
 
 ### 内容过滤
 
@@ -59,11 +76,11 @@ filterout 去掉不要的内容
 
 举例: [https://rsshub.app/bilibili/user/coin/2267573?filterout=微小微|赤九玖|暴走大事件](https://rsshub.app/bilibili/user/coin/2267573?filterout=微小微|赤九玖|暴走大事件)
 
-::: tip 提示
+### 条数限制
 
-filter 与 filterout 共 6 个 query 参数可以组合使用。当 filter、filter_title、filter_description 中多个参数存在时，取其交集进行过滤，filterout 三项同理。
+可以使用 limit 参数限制最大条数，主要用于排行榜类 RSS
 
-:::
+举例：bilibili 排行榜前 10 [https://rsshub.app/bilibili/ranking/0/3?limit=10](https://rsshub.app/bilibili/ranking/0/3?limit=10)
 
 ### 输出格式
 
@@ -95,7 +112,7 @@ RSSHub 同时支持 RSS 2.0、Atom 和 [JSON Feed](https://jsonfeed.org/) 输出
 
 路由: `/bilibili/bangumi/:seasonid`
 
-参数: seasonid，番剧 id，可在番剧主页 URL 中找到
+参数: seasonid，番剧 id，番剧主页打开控制台执行 `window.__INITIAL_STATE__.ssId` 或 `window.__INITIAL_STATE__.mediaInfo.param.season_id` 获取
 
 ### UP 主投稿
 
@@ -113,6 +130,16 @@ RSSHub 同时支持 RSS 2.0、Atom 和 [JSON Feed](https://jsonfeed.org/) 输出
 
 参数: uid，用户 id，可在 UP 主主页中找到
 
+### UP 主频道
+
+举例: [https://rsshub.app/bilibili/channel/142821407/23390](https://rsshub.app/bilibili/channel/142821407/23390)
+
+路由: `/bilibili/channel/:uid/:cid`
+
+参数: uid，用户 id，可在 UP 主主页中找到
+
+cid，频道 ID,可在频道的 URL 中找到
+
 ### UP 主默认收藏夹
 
 举例: [https://rsshub.app/bilibili/user/fav/2267573](https://rsshub.app/bilibili/user/fav/2267573)
@@ -129,7 +156,7 @@ RSSHub 同时支持 RSS 2.0、Atom 和 [JSON Feed](https://jsonfeed.org/) 输出
 
 参数: uid，用户 id，可在 UP 主主页中找到
 
-fid,收藏夹 ID,可在收藏夹的 URL 中找到,默认收藏夹建议使用 UP 主默认收藏夹功能
+fid，收藏夹 ID,可在收藏夹的 URL 中找到,默认收藏夹建议使用 UP 主默认收藏夹功能
 
 ### UP 主投币视频
 
@@ -332,6 +359,22 @@ order: 排序方式，live_time 开播时间，online 人气
 路由: `/bilibili/mall/ip/:id`
 
 参数: id, 作品 id, 可在作品列表页 URL 中找到
+
+### 排行榜
+
+举例: [https://rsshub.app/bilibili/ranking/0/3](https://rsshub.app/bilibili/ranking/0/3)
+
+路由: `/bilibili/ranking/:rid?/:day?`
+
+参数:
+
+day: 时间跨度，可为 1 3 7 30
+
+rid: 排行榜分区 id，默认 0
+
+| 全站 | 动画 | 国创相关 | 音乐 | 舞蹈 | 游戏 | 科技 | 生活 | 鬼畜 | 时尚 | 娱乐 | 影视 |
+| ---- | ---- | -------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| 0    | 1    | 168      | 3    | 129  | 4    | 36   | 160  | 119  | 155  | 5    | 181  |
 
 ## bangumi
 
@@ -746,7 +789,13 @@ groupid: 豆瓣小组的 id
 
 举例: [https://rsshub.app/jandan/pic](https://rsshub.app/jandan/pic)
 
-路由: `/jandan/pic`
+路由: `/jandan/:sub_model`
+
+### 妹子图
+
+举例: [https://rsshub.app/jandan/ooxx](https://rsshub.app/jandan/ooxx)
+
+路由: `/jandan/:sub_model`
 
 参数: 无
 
@@ -793,6 +842,12 @@ key: 产品密钥
 路由: `/biquge/novel/latestchapter/:id`
 
 参数: id，小说 id，可在对应小说页 URL 中找到
+
+::: tip 提示
+
+由于笔趣阁网站有多个，各站点小说对应的小说 id 不同。此 feed 只对应在[`www.biquge5200.com`](https://www.biquge5200.com/)中的小说 id。
+
+:::
 
 ## 开发者头条
 
@@ -1427,3 +1482,285 @@ id, 专辑 id, 可在对应专辑页面的 URL 中找到
 举例: [https://rsshub.app/kejixingqiu/home](https://rsshub.app/kejixingqiu/home)
 
 路由: `/kejixingqiu/home`
+
+## 北大信科
+
+### 公告通知
+
+举例: [https://rsshub.app/pku/eecs/0](https://rsshub.app/pku/eecs/0)
+
+路由: `/eecs/:type`
+
+可选参数: type，分区 type，可在网页 URL 中找到
+
+| 全部 | 学院通知 | 人事通知 | 教务通知 | 学工通知 | 科研通知 | 财务通知 | 工会通知 | 院友通知 |
+| ---- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| 0    | 1        | 2        | 6        | 8        | 7        | 5        | 3        | 4        |
+
+## 机核网
+
+### 分类
+
+举例: [https://rsshub.app/gcores/category/1](https://rsshub.app/gcores/category/1)
+
+路由: `/gcores/category/:category`
+
+参数: category，分类名
+
+| 文章 | 新闻 | 电台 |
+| ---- | ---- | ---- |
+| 1    | 2    | 9    |
+
+## 国家地理
+
+### 分类
+
+举例:
+
+[https://rsshub.app/natgeo/travel](https://rsshub.app/natgeo/travel)
+
+[https://rsshub.app/natgeo/news/ngnews](https://rsshub.app/natgeo/news/ngnews)
+
+路由： `/natgeo/:cat/:type?`
+
+参数： cat, 分类; type, 类型
+
+可在 url 中获取，例如`https://www.natgeomedia.com/category/news/ngnews`对应 cat, type 分别为 news, ngnews
+
+## ONE · 一个
+
+举例： [https://rsshub.app/one](https://rsshub.app/one)
+
+路由: `/one`
+
+参数: 无
+
+## Firefox
+
+### Release note
+
+举例: [https://rsshub.app/firefox/release/desktop](https://rsshub.app/firefox/release/desktop)
+
+路由: `/firefox/release/:platform`
+
+参数: platform
+
+| 桌面    | Android | Beta | Nightly | Android Beta |
+| ------- | ------- | ---- | ------- | ------------ |
+| dekstop | android | beta | nightly | android-beta |
+
+## 推酷
+
+### 周刊
+
+举例: [https://rsshub.app/tuicool/mags/tech](https://rsshub.app/tuicool/mags/tech)
+
+路由: `/tuicool/mags/:type`
+
+参数: type
+
+| 编程狂人 | 设计匠艺 | 创业周刊 | 科技周刊 |
+| -------- | -------- | -------- | -------- |
+| prog     | design   | startup  | tech     |
+
+## Hexo
+
+### Next 主题
+
+举例：[http://rsshub.app/hexo/next/fengkx.top](http://rsshub.app/hexo/next/fengkx.top)
+
+路由： `/hexo/next/:url`
+
+参数： url 博客 Url 不带协议头
+
+## 小米
+
+### 众筹
+
+举例： [https://rsshub.app/mi/crowdfunding](https://rsshub.app/mi/crowdfunding)
+
+路由: `/mi/crowdfunding`
+
+参数: 无
+
+## 华南师范大学
+
+### 教务处通知
+
+举例： [https://rsshub.app/scnu/jw](https://rsshub.app/scnu/jw)
+
+路由： `/scnu/jw`
+
+参数：无
+
+### 图书馆通知
+
+举例： [https://rsshub.app/scnu/library](https://rsshub.app/scnu/library)
+
+路由： `/scnu/library`
+
+参数：无
+
+### 计算机学院竞赛通知
+
+举例： [https://rsshub.app/scnu/cs/match](https://rsshub.app/scnu/cs/match)
+
+路由： `/scnu/cs/match`
+
+参数：无
+
+## Keep
+
+### 运动日记
+
+举例：[https://rsshub.app/keep/user/556b02c1ab59390afea671ea](https://rsshub.app/keep/user/556b02c1ab59390afea671ea)
+
+路由: `/keep/user/:id`
+
+参数: id，Keep 用户 id
+
+## 起点
+
+### 章节
+
+举例： [https://rsshub.app/qidian/chapter/1010400217](https://rsshub.app/qidian/chapter/1010400217)
+
+路由： `/qidian/chapter/:id`
+
+参数: id，小说 id，可在对应小说页 URL 中找到
+
+### 讨论区
+
+举例： [https://rsshub.app/qidian/forum/1010400217](https://rsshub.app/qidian/forum/1010400217)
+
+路由： `/qidian/forum/:id`
+
+参数: id，小说 id，可在对应小说页 URL 中找到
+
+## 懂球帝
+
+### 早报
+
+举例： [https://rsshub.app/dongqiudi/daily](https://rsshub.app/dongqiudi/daily)
+
+路由： `/dongqiudi/daily`
+
+参数：无
+
+## 维基百科
+
+### 中国大陆新闻动态
+
+举例： [https://rsshub.app/wikipedia/mainland](https://rsshub.app/wikipedia/mainland)
+
+路由： `/wikipedia/mainland`
+
+参数：无
+
+## 雪球
+
+### 用户动态
+
+举例: [https://rsshub.app/xueqiu/user/8152922548](https://rsshub.app/xueqiu/user/8152922548)
+
+路由: `/xueqiu/user/:id/:type?`
+
+参数:
+
+id，用户 id，可在用户主页 URL 中找到
+
+type，可选，动态的类型，不填则默认全部
+
+| 原发布 | 长文 | 问答 | 热门 | 交易 |
+| ------ | ---- | ---- | ---- | ---- |
+| 0      | 2    | 4    | 9    | 11   |
+
+### 用户收藏动态
+
+举例: [https://rsshub.app/xueqiu/favorite/8152922548](https://rsshub.app/xueqiu/favorite/8152922548)
+
+路由: `/xueqiu/favorite/:id`
+
+参数:
+
+id，用户 id，可在用户主页 URL 中找到
+
+## 中国美术馆
+
+### 通知公告
+
+举例： [https://rsshub.app/namoc/announcement](https://rsshub.app/namoc/announcement)
+
+路由： `/namoc/announcement`
+
+参数：无
+
+### 新闻
+
+举例： [https://rsshub.app/namoc/news](https://rsshub.app/namoc/news)
+
+路由： `/namoc/news`
+
+参数：无
+
+### 媒体联报
+
+举例： [https://rsshub.app/namoc/media](https://rsshub.app/namoc/media)
+
+路由： `/namoc/media`
+
+参数：无
+
+### 展览预告
+
+举例： [https://rsshub.app/namoc/exhibition](https://rsshub.app/namoc/exhibition)
+
+路由： `/namoc/exhibition`
+
+参数：无
+
+### 焦点专题
+
+举例： [https://rsshub.app/namoc/specials](https://rsshub.app/namoc/specials)
+
+路由： `/namoc/specials`
+
+参数：无
+
+## Greasy Fork
+
+### 脚本更新
+
+举例: [https://rsshub.app/greasyfork/zh-CN/bilibili.com](https://rsshub.app/greasyfork/zh-CN/bilibili.com)
+
+路由: `/greasyfork/:language/:domain?`
+
+参数:
+
+language，语言，可在网站右上角找到， `all` 为所有语言
+
+domain，按脚本生效域名过滤，可选
+
+## LinkedKeeper
+
+### 博文
+
+举例: [https://rsshub.app/linkedkeeper/sub/1](https://rsshub.app/linkedkeeper/sub/1)
+
+路由: `/linkedkeeper/:type/:id?`
+
+参数:
+
+type，博文分类，为 URL 中 `.action` 的文件名
+
+id，可选，分区或标签的 ID，对应 URL 中的 `sid` 或 `tid`
+
+## 开源中国
+
+### 资讯
+
+举例: [https://rsshub.app/oschina/news](https://rsshub.app/oschina/news)
+
+路由: `/oschina/news`
+
+参数：无

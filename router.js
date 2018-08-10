@@ -103,6 +103,8 @@ router.get('/bilibili/fav/:uid/:fid', require('./routes/bilibili/fav'));
 router.get('/bilibili/blackboard', require('./routes/bilibili/blackboard'));
 router.get('/bilibili/mall/new', require('./routes/bilibili/mallNew'));
 router.get('/bilibili/mall/ip/:id', require('./routes/bilibili/mallIP'));
+router.get('/bilibili/ranking/:rid?/:day?', require('./routes/bilibili/ranking'));
+router.get('/bilibili/channel/:uid/:cid', require('./routes/bilibili/userChannel'));
 
 // bangumi
 router.get('/bangumi/calendar/today', require('./routes/bangumi/calendar/today'));
@@ -170,7 +172,7 @@ router.get('/douban/movie/ustop', require('./routes/douban/ustop'));
 router.get('/douban/group/:groupid', require('./routes/douban/group'));
 
 // 煎蛋
-router.get('/jandan/pic', require('./routes/jandan/pic'));
+router.get('/jandan/:sub_model', require('./routes/jandan/pic'));
 
 // 喷嚏
 router.get('/dapenti/tugua', require('./routes/dapenti/tugua'));
@@ -325,6 +327,7 @@ router.get('/mihoyo/bh2/:type', require('./routes/mihoyo/bh2'));
 // 灵梦御所
 router.get('/reimu/category/:category', require('./routes/reimu/category'));
 router.get('/reimu/tag/:tag', require('./routes/reimu/tag'));
+
 // 央视新闻
 router.get('/cctv/:category', require('./routes/cctv/category'));
 
@@ -333,5 +336,67 @@ router.get('/t66y/:id', require('./routes/t66y/index'));
 
 // 科技星球
 router.get('/kejixingqiu/home', require('./routes/kejixingqiu/home'));
+
+// PKUEECS
+router.get('/pku/eecs/:type?', require('./routes/pku/eecs'));
+
+// 机核
+router.get('/gcores/category/:category', require('./routes/gcores/category'));
+
+// 国家地理
+router.get('/natgeo/:cat/:type?', require('./routes/natgeo/natgeo'));
+
+// 一个
+router.get('/one', require('./routes/one/index'));
+
+// Firefox
+router.get('/firefox/release/:platform', require('./routes/firefox/release'));
+
+// tuicool
+router.get('/tuicool/mags/:type', require('./routes/tuicool/mags'));
+
+// Hexo
+router.get('/hexo/next/:url', require('./routes/hexo/next'));
+
+// 小米
+router.get('/mi/crowdfunding', require('./routes/mi/crowdfunding'));
+
+// SCNU
+router.get('/scnu/jw', require('./routes/scnu/jw'));
+router.get('/scnu/library', require('./routes/scnu/library'));
+router.get('/scnu/cs/match', require('./routes/scnu/cs/match'));
+
+// Keep
+router.get('/keep/user/:id', require('./routes/keep/user'));
+
+// 起点
+router.get('/qidian/chapter/:id', require('./routes/qidian/chapter'));
+router.get('/qidian/forum/:id', require('./routes/qidian/forum'));
+
+// 中国美术馆
+router.get('/namoc/announcement', require('./routes/namoc/announcement'));
+router.get('/namoc/news', require('./routes/namoc/news'));
+router.get('/namoc/media', require('./routes/namoc/media'));
+router.get('/namoc/exhibition', require('./routes/namoc/exhibition'));
+router.get('/namoc/specials', require('./routes/namoc/specials'));
+
+// 懂球帝
+router.get('/dongqiudi/daily', require('./routes/dongqiudi/index'));
+
+// 维基百科
+router.get('/wikipedia/mainland', require('./routes/wikipedia/mainland'));
+
+// 雪球
+router.get('/xueqiu/user/:id/:type?', require('./routes/xueqiu/user'));
+router.get('/xueqiu/favorite/:id', require('./routes/xueqiu/favorite'));
+
+// Greasy Fork
+router.get('/greasyfork/:language/:domain?', require('./routes/greasyfork/scripts'));
+
+// LinkedKeeper
+router.get('/linkedkeeper/:type/:id?', require('./routes/linkedkeeper/index'));
+
+// 开源中国
+router.get('/oschina/news', require('./routes/oschina/news'));
 
 module.exports = router;
